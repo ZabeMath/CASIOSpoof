@@ -1,51 +1,65 @@
-;HITACHI OPTIMIZING LINKAGE EDITOR GENERATED FILE 2021.03.12
+;HITACHI OPTIMIZING LINKAGE EDITOR GENERATED FILE 2021.03.13
 ;fsymbol = P
 
 ;SECTION NAME = P
  .export _AddIn_main
 _AddIn_main: .equ h'0030020c
+ .export _menu
+_menu: .equ h'00300232
+ .export _plotMenuPage
+_plotMenuPage: .equ h'003002a0
+ .export _resetWindow
+_resetWindow: .equ h'003003a8
+ .export _confirmWindow
+_confirmWindow: .equ h'00300318
  .export ___LINK_PROTECT
-___LINK_PROTECT: .equ h'00300258
+___LINK_PROTECT: .equ h'0030044c
  .export _SetQuitHandler
-_SetQuitHandler: .equ h'0030025c
+_SetQuitHandler: .equ h'00300450
  .export _OnAppCloseDefault
-_OnAppCloseDefault: .equ h'00300262
+_OnAppCloseDefault: .equ h'00300456
  .export __INITSCT_ADDIN
-__INITSCT_ADDIN: .equ h'003002b6
+__INITSCT_ADDIN: .equ h'003004aa
  .export _INIT_ADDIN_APPLICATION
-_INIT_ADDIN_APPLICATION: .equ h'003002fe
+_INIT_ADDIN_APPLICATION: .equ h'003004f2
+ .export __quick_odd_mvn
+__quick_odd_mvn: .equ h'00300574
+ .export __quick_evn_mvn
+__quick_evn_mvn: .equ h'00300568
  .export _Bdel_cychdr
-_Bdel_cychdr: .equ h'00300374
+_Bdel_cychdr: .equ h'0030060c
  .export _Bdisp_AllClr_DDVRAM
-_Bdisp_AllClr_DDVRAM: .equ h'00300384
+_Bdisp_AllClr_DDVRAM: .equ h'0030061c
  .export _BfileFLS_CloseFile
-_BfileFLS_CloseFile: .equ h'00300394
+_BfileFLS_CloseFile: .equ h'0030062c
  .export _Bkey_Set_RepeatTime_Default
-_Bkey_Set_RepeatTime_Default: .equ h'003003a4
+_Bkey_Set_RepeatTime_Default: .equ h'0030063c
  .export _CallbackAtQuitMainFunction
-_CallbackAtQuitMainFunction: .equ h'003003b4
+_CallbackAtQuitMainFunction: .equ h'0030064c
  .export _flsFindClose
-_flsFindClose: .equ h'003003c4
+_flsFindClose: .equ h'0030065c
  .export _GetKey
-_GetKey: .equ h'003003d4
+_GetKey: .equ h'0030066c
  .export _GLibAddinAplExecutionCheck
-_GLibAddinAplExecutionCheck: .equ h'003003e4
+_GLibAddinAplExecutionCheck: .equ h'0030067c
  .export _Hmem_SetMMU
-_Hmem_SetMMU: .equ h'003003f4
+_Hmem_SetMMU: .equ h'0030068c
+ .export _PopUpWin
+_PopUpWin: .equ h'0030069c
  .export _Print
-_Print: .equ h'00300404
+_Print: .equ h'003006ac
  .export _PrintMini
-_PrintMini: .equ h'00300414
+_PrintMini: .equ h'003006bc
  .export _locate
-_locate: .equ h'00300430
+_locate: .equ h'003006d8
  .export _Bdisp_ReadArea_DD
-_Bdisp_ReadArea_DD: .equ h'00300458
+_Bdisp_ReadArea_DD: .equ h'00300700
  .export __divls
-__divls: .equ h'0030058c
+__divls: .equ h'00300834
  .export _DD_GET
-_DD_GET: .equ h'00300640
+_DD_GET: .equ h'003008e8
  .export _locate_OS
-_locate_OS: .equ h'00300650
+_locate_OS: .equ h'003008f8
  .export _PrintMiniSd
-_PrintMiniSd: .equ h'00300660
+_PrintMiniSd: .equ h'00300908
  .end

@@ -1,4 +1,4 @@
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 12-Mar-2021 17:53:10  PAGE    1
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    1
 
 ************ OBJECT LISTING ************
 
@@ -6,156 +6,713 @@ FILE NAME: C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\spoof.c
 
 SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
 
-         spoof.c     1    /*****************************************************************/
-         spoof.c     2    /*                                                               */
-         spoof.c     3    /*   CASIO fx-9860G SDK Library                                  */
-         spoof.c     4    /*                                                               */
-         spoof.c     5    /*   File name : [ProjectName].c                                 */
-         spoof.c     6    /*                                                               */
-         spoof.c     7    /*   Copyright (c) 2006 CASIO COMPUTER CO., LTD.                 */
-         spoof.c     8    /*                                                               */
-         spoof.c     9    /*****************************************************************/
-         spoof.c    10    #include "fxlib.h"
-         spoof.c    11    
-         spoof.c    12    
-         spoof.c    13    //****************************************************************************
-         spoof.c    14    //  AddIn_main (Sample program main function)
-         spoof.c    15    //
-         spoof.c    16    //  param   :   isAppli   : 1 = This application is launched by MAIN MENU.
-         spoof.c    17    //                        : 0 = This application is launched by a strip in eACT application.
-         spoof.c    18    //
-         spoof.c    19    //              OptionNum : Strip number (0~3)
-         spoof.c    20    //                         (This parameter is only used when isAppli parameter is 0.)
-         spoof.c    21    //
-         spoof.c    22    //  retval  :   1 = No error / 0 = Error
-         spoof.c    23    //
-         spoof.c    24    //****************************************************************************
-         spoof.c    25    int AddIn_main(int isAppli, unsigned short OptionNum)
+         spoof.c     1    /**
+         spoof.c     2     * Using CASIO fx-9860G SDK Library
+         spoof.c     3     *
+         spoof.c     4     * @file spoof.c
+         spoof.c     5     */
+         spoof.c     6    #include "fxlib.h"
+         spoof.c     7    
+         spoof.c     8    /**
+         spoof.c     9     * AddIn_main (program main function)
+         spoof.c    10     *
+         spoof.c    11     * @param isAppli   : 1 = This application is launched by MAIN MENU.
+         spoof.c    12     *                  : 0 = This application is launched by a strip in eACT application.
+         spoof.c    13     * @param OptionNum : Strip number (0~3)
+         spoof.c    14     *                    (This parameter is only used when isAppli parameter is 0.)
+         spoof.c    15     *
+         spoof.c    16     * @return int: 1 = No error / 0 = Error
+         spoof.c    17     */
+         spoof.c    18    int AddIn_main(int isAppli, unsigned short OptionNum) {
 P   00000000              _AddIn_main:                     ; function: AddIn_main
                                                            ; frame size=4
-         spoof.c    26    {
-         spoof.c    27        unsigned int key;
-         spoof.c    28    
-         spoof.c    29        Bdisp_AllClr_DDVRAM();
-    00000000 D30C                   MOV.L       L316+2,R3  ; _Bdisp_AllClr_DDVRAM
-    00000002 7FFC                   ADD         #-4,R15
+    00000000 4F22                   STS.L       PR,@-R15
+         spoof.c    19            
+         spoof.c    20            // clearing the hole vram and display driver
+         spoof.c    21            Bdisp_AllClr_DDVRAM();
+    00000002 D33B                   MOV.L       L409+6,R3  ; _Bdisp_AllClr_DDVRAM
     00000004 430B                   JSR         @R3
     00000006 0009                   NOP
-         spoof.c    30    
-         spoof.c    31        locate(1,4);
-    00000008 D20B                   MOV.L       L316+6,R2  ; _locate
-    0000000A E504                   MOV         #4,R5
-    0000000C 420B                   JSR         @R2
-    0000000E E401                   MOV         #1,R4
-         spoof.c    32        Print((unsigned char*)"This application is");
-    00000010 D40A                   MOV.L       L316+10,R4 ; L302
-    00000012 D30B                   MOV.L       L316+14,R3 ; _Print
-    00000014 430B                   JSR         @R3
-    00000016 0009                   NOP
-         spoof.c    33        locate(1,5);
-    00000018 D207                   MOV.L       L316+6,R2  ; _locate
-    0000001A E505                   MOV         #5,R5
-    0000001C 420B                   JSR         @R2
-    0000001E E401                   MOV         #1,R4
-         spoof.c    34        Print((unsigned char*)" sample Add-In.");
-    00000020 D408                   MOV.L       L316+18,R4 ; L303
-    00000022 D307                   MOV.L       L316+14,R3 ; _Print
+         spoof.c    22    
+         spoof.c    23            menu();
+    00000008 B00D                   BSR         _menu
+    0000000A 0009                   NOP
+         spoof.c    24            
+         spoof.c    25            // temporary (todo loading bar):
+         spoof.c    26            Bdisp_AllClr_DDVRAM();
+    0000000C D338                   MOV.L       L409+6,R3  ; _Bdisp_AllClr_DDVRAM
+    0000000E 430B                   JSR         @R3
+    00000010 0009                   NOP
+         spoof.c    27            plotMenuPage( 1 );
+    00000012 B03F                   BSR         _plotMenuPage
+    00000014 E401                   MOV         #1,R4
+         spoof.c    28            PopUpWin( 5 );
+    00000016 D337                   MOV.L       L409+10,R3 ; _PopUpWin
+    00000018 430B                   JSR         @R3
+    0000001A E405                   MOV         #5,R4
+         spoof.c    29    
+         spoof.c    30            resetWindow();
+    0000001C B0BE                   BSR         _resetWindow
+    0000001E 0009                   NOP
+         spoof.c    31            
+         spoof.c    32            // @todo support reboot (if possible) or spoof reboot
+         spoof.c    33    
+         spoof.c    34        return 1;
+         spoof.c    35    }
+    00000020 4F26                   LDS.L       @R15+,PR
 
 
 
 
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 12-Mar-2021 17:53:10  PAGE    2
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    2
 
 
 SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
 
-    00000024 430B                   JSR         @R3
-    00000026 0009                   NOP
-    00000028 DE07                   MOV.L       L316+22,R14; _GetKey
-         spoof.c    35    
-         spoof.c    36        while(1){
-    0000002A              L313:                             
-         spoof.c    37            GetKey(&key);
-    0000002A 4E0B                   JSR         @R14
-    0000002C 64F3                   MOV         R15,R4
-    0000002E AFFC                   BRA         L313
-    00000030 0009                   NOP
-    00000032              L316:                             
-    00000032 0000                   .DATA.W     0
-    00000034 <00000000>             .DATA.L     _Bdisp_AllClr_DDVRAM
-    00000038 <00000000>             .DATA.L     _locate
-    0000003C <00000000>             .DATA.L     L302
-    00000040 <00000000>             .DATA.L     _Print
-    00000044 <00000000>             .DATA.L     L303
-    00000048 <00000000>             .DATA.L     _GetKey
-         spoof.c    38        }
-         spoof.c    39    
-         spoof.c    40        return 1;
-         spoof.c    41    }
-         spoof.c    42    
-         spoof.c    43    
-         spoof.c    44    
-         spoof.c    45    
-         spoof.c    46    //****************************************************************************
-         spoof.c    47    //**************                                              ****************
-         spoof.c    48    //**************                 Notice!                      ****************
-         spoof.c    49    //**************                                              ****************
-         spoof.c    50    //**************  Please do not change the following source.  ****************
-         spoof.c    51    //**************                                              ****************
-         spoof.c    52    //****************************************************************************
-         spoof.c    53    
-         spoof.c    54    
-         spoof.c    55    #pragma section _BR_Size
-         spoof.c    56    unsigned long BR_Size;
-         spoof.c    57    #pragma section
-         spoof.c    58    
-         spoof.c    59    
-         spoof.c    60    #pragma section _TOP
+    00000022 000B                   RTS
+    00000024 E001                   MOV         #1,R0
+         spoof.c    36    
+         spoof.c    37    /**
+         spoof.c    38     * menu() displays the Reset menu.
+         spoof.c    39     */
+         spoof.c    40    int menu() {
+    00000026              _menu:                           ; function: menu
+                                                           ; frame size=16
+         spoof.c    41            unsigned int key, page = 0;
+    00000026 E300                   MOV         #0,R3
+    00000028 2FE6                   MOV.L       R14,@-R15
+         spoof.c    42            
+         spoof.c    43            plotMenuPage( page );
+    0000002A 6433                   MOV         R3,R4
+    0000002C 4F22                   STS.L       PR,@-R15
+    0000002E 7FF8                   ADD         #-8,R15
+    00000030 2F32                   MOV.L       R3,@R15
+    00000032 B02F                   BSR         _plotMenuPage
+    00000034 0009                   NOP
+         spoof.c    44            
+         spoof.c    45            while( 1 ) {
+    00000036              L386:                             
+         spoof.c    46            GetKey( &key );
+    00000036 64F3                   MOV         R15,R4
+    00000038 DE2F                   MOV.L       L409+14,R14; _GetKey
+    0000003A 4E0B                   JSR         @R14
+    0000003C 7404                   ADD         #4,R4
+         spoof.c    47                    if ( key == KEY_CTRL_F6 ) {
+    0000003E 9454                   MOV.W       L409,R4    ; H'753E
+    00000040 53F1                   MOV.L       @(4,R15),R3
+    00000042 3340                   CMP/EQ      R4,R3
+    00000044 8B0B                   BF          L387
+         spoof.c    48                            page < 1 ? page++ : page--;
+    00000046 E401                   MOV         #1,R4
+    00000048 63F2                   MOV.L       @R15,R3
+    0000004A 3342                   CMP/HS      R4,R3
+    0000004C 8903                   BT          L388
+    0000004E 61F2                   MOV.L       @R15,R1
+    00000050 7101                   ADD         #1,R1
+    00000052 A014                   BRA         L361
+    00000054 2F12                   MOV.L       R1,@R15
+    00000056              L388:                             
+    00000056 63F2                   MOV.L       @R15,R3
+    00000058 73FF                   ADD         #-1,R3
+    0000005A A010                   BRA         L361
+    0000005C 2F32                   MOV.L       R3,@R15
+    0000005E              L387:                             
+         spoof.c    49                            Bdisp_AllClr_DDVRAM();
+         spoof.c    50                            plotMenuPage( page );
+         spoof.c    51                    } else if ( key == KEY_CTRL_F2 && page == 1 ) {
+    0000005E 9445                   MOV.W       L409+2,R4  ; H'753A
+    00000060 53F1                   MOV.L       @(4,R15),R3
+    00000062 3340                   CMP/EQ      R4,R3
+    00000064 8BE7                   BF          L386
+    00000066 60F2                   MOV.L       @R15,R0
+    00000068 8801                   CMP/EQ      #1,R0
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    3
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    0000006A 8BE4                   BF          L386
+         spoof.c    52                            if ( confirmWindow() == 1 ) {
+    0000006C B04E                   BSR         _confirmWindow
+    0000006E 0009                   NOP
+    00000070 8801                   CMP/EQ      #1,R0
+    00000072 8B04                   BF          L361
+         spoof.c    53                                    return 1;
+    00000074 E001                   MOV         #1,R0
+    00000076 7F08                   ADD         #8,R15
+    00000078 4F26                   LDS.L       @R15+,PR
+    0000007A 000B                   RTS
+    0000007C 6EF6                   MOV.L       @R15+,R14
+    0000007E              L361:
+         spoof.c    54                            } else {
+         spoof.c    55                                    Bdisp_AllClr_DDVRAM();
+    0000007E DE1C                   MOV.L       L409+6,R14 ; _Bdisp_AllClr_DDVRAM
+    00000080 4E0B                   JSR         @R14
+    00000082 0009                   NOP
+         spoof.c    56                                    plotMenuPage( page );
+    00000084 B006                   BSR         _plotMenuPage
+    00000086 64F2                   MOV.L       @R15,R4
+    00000088 AFD5                   BRA         L386
+    0000008A 0009                   NOP
+    0000008C              L393:                             
+         spoof.c    57                            }
+         spoof.c    58                    }
+         spoof.c    59            }
+         spoof.c    60    }
+    0000008C 7F08                   ADD         #8,R15
+    0000008E 4F26                   LDS.L       @R15+,PR
+    00000090 000B                   RTS
+    00000092 6EF6                   MOV.L       @R15+,R14
          spoof.c    61    
-         spoof.c    62    //****************************************************************************
-         spoof.c    63    //  InitializeSystem
-         spoof.c    64    //
-         spoof.c    65    //  param   :   isAppli   : 1 = Application / 0 = eActivity
-         spoof.c    66    //              OptionNum : Option Number (only eActivity)
-         spoof.c    67    //
-         spoof.c    68    //  retval  :   1 = No error / 0 = Error
-         spoof.c    69    //
-         spoof.c    70    //****************************************************************************
-         spoof.c    71    int InitializeSystem(int isAppli, unsigned short OptionNum)
+         spoof.c    62    /**
+         spoof.c    63     * plotMenuPage() plots a page of the reset page based on the given page parameter.
+         spoof.c    64     *
+         spoof.c    65     * @param int page: declares which page will be plotted.
+         spoof.c    66     */
+         spoof.c    67    int plotMenuPage( int page ) {
+    00000094              _plotMenuPage:                   ; function: plotMenuPage
+                                                           ; frame size=88
+                                                           ; used runtime library name:
+                                                           ; __quick_evn_mvn
+    00000094 2FE6                   MOV.L       R14,@-R15
+    00000096 2FD6                   MOV.L       R13,@-R15
+    00000098 2FC6                   MOV.L       R12,@-R15
+    0000009A 2FB6                   MOV.L       R11,@-R15
+    0000009C 2FA6                   MOV.L       R10,@-R15
+    0000009E 2F96                   MOV.L       R9,@-R15
+    000000A0 4F22                   STS.L       PR,@-R15
+    000000A2 4F12                   STS.L       MACL,@-R15
+         spoof.c    68            unsigned char * menuItems[][7] = {
+         spoof.c    69                    {
+         spoof.c    70                            "*****   RESET   *****",
+         spoof.c    71                            "F1:Setup Data",
+         spoof.c    72                            "F2:Main Memory",
+         spoof.c    73                            "F3:Add-In",
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    4
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         spoof.c    74                            "F4:Storage Memory",
+         spoof.c    75                            "F5:Add-In&Storage",
+         spoof.c    76                            "F6:Next Page"
+         spoof.c    77                    },
+         spoof.c    78                    {
+         spoof.c    79                            "*****   RESET   *****",
+         spoof.c    80                            "F1:Main&Storage",
+         spoof.c    81                            "F2:Initialize All",
+         spoof.c    82                            "",
+         spoof.c    83                            "",
+         spoof.c    84                            "",
+         spoof.c    85                            "F6:Next Page"
+         spoof.c    86                    }
+         spoof.c    87            };
+    000000A4 D215                   MOV.L       L409+18,R2 ; L316
+    000000A6 7FC8                   ADD         #-56,R15
+    000000A8 D315                   MOV.L       L409+22,R3 ; __quick_evn_mvn
+    000000AA 65F3                   MOV         R15,R5
+    000000AC 61F3                   MOV         R15,R1
+    000000AE 430B                   JSR         @R3
+    000000B0 E038                   MOV         #56,R0
+         spoof.c    88            
+         spoof.c    89            unsigned int i;
+         spoof.c    90            for ( i = 0 ; i < 7 ; ++i ) {
+    000000B2 EC00                   MOV         #0,R12
+    000000B4 D913                   MOV.L       L409+26,R9 ; _locate
+    000000B6 EB07                   MOV         #7,R11
+    000000B8 DA13                   MOV.L       L409+30,R10; _Print
+    000000BA ED01                   MOV         #1,R13
+    000000BC EE1C                   MOV         #28,R14
+    000000BE 04E7                   MUL.L       R14,R4
+    000000C0 0E1A                   STS         MACL,R14
+    000000C2 3E5C                   ADD         R5,R14
+    000000C4              L395:                             
+         spoof.c    91                    locate( 1, i + 1 );
+    000000C4 65D3                   MOV         R13,R5
+    000000C6 490B                   JSR         @R9
+    000000C8 E401                   MOV         #1,R4
+         spoof.c    92                    Print( menuItems[page][i] );
+    000000CA 4A0B                   JSR         @R10
+    000000CC 64E6                   MOV.L       @R14+,R4
+    000000CE 7C01                   ADD         #1,R12
+    000000D0 3CB2                   CMP/HS      R11,R12
+    000000D2 8FF7                   BF/S        L395
+    000000D4 7D01                   ADD         #1,R13
+         spoof.c    93            }
+         spoof.c    94            
+         spoof.c    95            // @todo buttons at the bottom need to be plotted
+         spoof.c    96    }
+    000000D6 7F38                   ADD         #56,R15
+    000000D8 4F16                   LDS.L       @R15+,MACL
+    000000DA 4F26                   LDS.L       @R15+,PR
+    000000DC 69F6                   MOV.L       @R15+,R9
+    000000DE 6AF6                   MOV.L       @R15+,R10
+    000000E0 6BF6                   MOV.L       @R15+,R11
+    000000E2 6CF6                   MOV.L       @R15+,R12
+    000000E4 6DF6                   MOV.L       @R15+,R13
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    5
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000000E6 000B                   RTS
+    000000E8 6EF6                   MOV.L       @R15+,R14
+    000000EA              L409:                             
+    000000EA 753E                   .DATA.W     H'753E
+    000000EC 753A                   .DATA.W     H'753A
+    000000EE 0000                   .DATA.W     0
+    000000F0 <00000000>             .DATA.L     _Bdisp_AllClr_DDVRAM
+    000000F4 <00000000>             .DATA.L     _PopUpWin
+    000000F8 <00000000>             .DATA.L     _GetKey
+    000000FC <00000000>             .DATA.L     L316
+    00000100 <00000000>             .DATA.L     __quick_evn_mvn
+    00000104 <00000000>             .DATA.L     _locate
+    00000108 <00000000>             .DATA.L     _Print
+         spoof.c    97    
+         spoof.c    98    /**
+         spoof.c    99     * confirmWindow() displays the 'Initialize All' reset confirmation window.
+         spoof.c   100     *
+         spoof.c   101     * @return int: returns which function button got pressed (1 or 6).
+         spoof.c   102     */
+         spoof.c   103    int confirmWindow() {
+    0000010C              _confirmWindow:                  ; function: confirmWindow
+                                                           ; frame size=76
+                                                           ; used runtime library name:
+                                                           ; __quick_odd_mvn
+    0000010C 2FE6                   MOV.L       R14,@-R15
+    0000010E 2FD6                   MOV.L       R13,@-R15
+    00000110 2FC6                   MOV.L       R12,@-R15
+    00000112 2FB6                   MOV.L       R11,@-R15
+    00000114 2FA6                   MOV.L       R10,@-R15
+    00000116 2F96                   MOV.L       R9,@-R15
+    00000118 2F86                   MOV.L       R8,@-R15
+    0000011A 4F22                   STS.L       PR,@-R15
+         spoof.c   104            unsigned int key, i;
+         spoof.c   105            unsigned int windowY[] = { 7, 4, 1, 5, 5 };
+    0000011C D23F                   MOV.L       L410+4,R2  ; L333
+    0000011E 7FD4                   ADD         #-44,R15
+    00000120 D33F                   MOV.L       L410+8,R3  ; __quick_odd_mvn
+    00000122 6BF3                   MOV         R15,R11
+    00000124 7B18                   ADD         #24,R11
+    00000126 61F3                   MOV         R15,R1
+    00000128 7118                   ADD         #24,R1
+    0000012A 430B                   JSR         @R3
+    0000012C E014                   MOV         #20,R0
+         spoof.c   106            unsigned char * windowItems[] = {
+         spoof.c   107                    "Reset OK?",
+         spoof.c   108                    "Initialize All",
+         spoof.c   109                    "",
+         spoof.c   110                    "Yes:[F1]",
+         spoof.c   111                    "No :[F6]"
+         spoof.c   112            };
+    0000012E 6AF3                   MOV         R15,R10
+    00000130 D23C                   MOV.L       L410+12,R2 ; L335
+    00000132 61F3                   MOV         R15,R1
+    00000134 D33A                   MOV.L       L410+8,R3  ; __quick_odd_mvn
+    00000136 7A04                   ADD         #4,R10
+    00000138 7104                   ADD         #4,R1
+    0000013A 430B                   JSR         @R3
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    6
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    0000013C E014                   MOV         #20,R0
+         spoof.c   113            
+         spoof.c   114            PopUpWin( 5 );
+    0000013E D13A                   MOV.L       L410+16,R1 ; _PopUpWin
+    00000140 410B                   JSR         @R1
+    00000142 E405                   MOV         #5,R4
+    00000144 D839                   MOV.L       L410+20,R8 ; _Print
+    00000146 E905                   MOV         #5,R9
+         spoof.c   115            for ( i = 0 ; i < 5 ; i = i + 1 ) {
+    00000148 E400                   MOV         #0,R4
+    0000014A 6D43                   MOV         R4,R13
+    0000014C 6E43                   MOV         R4,R14
+    0000014E EC02                   MOV         #2,R12
+    00000150              L396:                             
+         spoof.c   116                    locate( windowY[i], i + 2 );
+    00000150 D337                   MOV.L       L410+24,R3 ; _locate
+    00000152 65C3                   MOV         R12,R5
+    00000154 60E3                   MOV         R14,R0
+    00000156 430B                   JSR         @R3
+    00000158 04BE                   MOV.L       @(R0,R11),R4
+         spoof.c   117                    Print( windowItems[i] );
+    0000015A 60E3                   MOV         R14,R0
+    0000015C 480B                   JSR         @R8
+    0000015E 04AE                   MOV.L       @(R0,R10),R4
+    00000160 7D01                   ADD         #1,R13
+    00000162 7E04                   ADD         #4,R14
+    00000164 3D92                   CMP/HS      R9,R13
+    00000166 8FF3                   BF/S        L396
+    00000168 7C01                   ADD         #1,R12
+    0000016A DC32                   MOV.L       L410+28,R12; _GetKey
+    0000016C 9D54                   MOV.W       L410,R13   ; H'7539
+    0000016E 6ED3                   MOV         R13,R14
+    00000170 7E05                   ADD         #5,R14
+         spoof.c   118            }
+         spoof.c   119            
+         spoof.c   120            while( 1 ) {
+    00000172              L398:                             
+         spoof.c   121            GetKey( &key );
+    00000172 4C0B                   JSR         @R12
+    00000174 64F3                   MOV         R15,R4
+         spoof.c   122                    if ( key == KEY_CTRL_F1 ) {
+    00000176 62F2                   MOV.L       @R15,R2
+    00000178 32D0                   CMP/EQ      R13,R2
+    0000017A 8B01                   BF          L399
+         spoof.c   123                            // @todo loading bar
+         spoof.c   124                            return 1;
+    0000017C A004                   BRA         L400
+    0000017E E001                   MOV         #1,R0
+    00000180              L399:                             
+         spoof.c   125                    } else if ( key == KEY_CTRL_F6 ) {
+    00000180 63F2                   MOV.L       @R15,R3
+    00000182 33E0                   CMP/EQ      R14,R3
+    00000184 8BF5                   BF          L398
+         spoof.c   126                            return 6;
+    00000186 E006                   MOV         #6,R0
+    00000188              L400:                             
+         spoof.c   127                    }
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    7
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+         spoof.c   128        }
+         spoof.c   129    }
+    00000188 7F2C                   ADD         #44,R15
+    0000018A 4F26                   LDS.L       @R15+,PR
+    0000018C 68F6                   MOV.L       @R15+,R8
+    0000018E 69F6                   MOV.L       @R15+,R9
+    00000190 6AF6                   MOV.L       @R15+,R10
+    00000192 6BF6                   MOV.L       @R15+,R11
+    00000194 6CF6                   MOV.L       @R15+,R12
+    00000196 6DF6                   MOV.L       @R15+,R13
+    00000198 000B                   RTS
+    0000019A 6EF6                   MOV.L       @R15+,R14
+         spoof.c   130    
+         spoof.c   131    int resetWindow() {
+    0000019C              _resetWindow:                    ; function: resetWindow
+                                                           ; frame size=76
+                                                           ; used runtime library name:
+                                                           ; __quick_odd_mvn
+    0000019C 2FE6                   MOV.L       R14,@-R15
+    0000019E 2FD6                   MOV.L       R13,@-R15
+    000001A0 2FC6                   MOV.L       R12,@-R15
+    000001A2 2FB6                   MOV.L       R11,@-R15
+    000001A4 2FA6                   MOV.L       R10,@-R15
+    000001A6 2F96                   MOV.L       R9,@-R15
+    000001A8 2F86                   MOV.L       R8,@-R15
+    000001AA 4F22                   STS.L       PR,@-R15
+         spoof.c   132            unsigned int key, i;
+         spoof.c   133            unsigned int windowY[] = { 8, 4, 1, 1, 6 };
+    000001AC D222                   MOV.L       L410+32,R2 ; L348
+    000001AE 7FD4                   ADD         #-44,R15
+    000001B0 D31B                   MOV.L       L410+8,R3  ; __quick_odd_mvn
+    000001B2 6BF3                   MOV         R15,R11
+    000001B4 7B18                   ADD         #24,R11
+    000001B6 61F3                   MOV         R15,R1
+    000001B8 7118                   ADD         #24,R1
+    000001BA 430B                   JSR         @R3
+    000001BC E014                   MOV         #20,R0
+         spoof.c   134            unsigned char * windowItems[] = {
+         spoof.c   135                    "Reset!",
+         spoof.c   136                    "Initialize All",
+         spoof.c   137                    "",
+         spoof.c   138                    "",
+         spoof.c   139                    "Press:[EXIT]"
+         spoof.c   140            };
+    000001BE 6AF3                   MOV         R15,R10
+    000001C0 D21E                   MOV.L       L410+36,R2 ; L350
+    000001C2 61F3                   MOV         R15,R1
+    000001C4 D316                   MOV.L       L410+8,R3  ; __quick_odd_mvn
+    000001C6 7A04                   ADD         #4,R10
+    000001C8 7104                   ADD         #4,R1
+    000001CA 430B                   JSR         @R3
+    000001CC E014                   MOV         #20,R0
+         spoof.c   141            
+         spoof.c   142            for ( i = 0 ; i < 5 ; ++i ) {
+    000001CE E400                   MOV         #0,R4
+    000001D0 D816                   MOV.L       L410+20,R8 ; _Print
+    000001D2 E905                   MOV         #5,R9
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    8
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    000001D4 6C43                   MOV         R4,R12
+    000001D6 6E43                   MOV         R4,R14
+    000001D8 ED02                   MOV         #2,R13
+    000001DA              L403:                             
+         spoof.c   143                    locate( windowY[i], i + 2 );
+    000001DA 65D3                   MOV         R13,R5
+    000001DC D314                   MOV.L       L410+24,R3 ; _locate
+    000001DE 60E3                   MOV         R14,R0
+    000001E0 430B                   JSR         @R3
+    000001E2 04BE                   MOV.L       @(R0,R11),R4
+         spoof.c   144                    Print( windowItems[i] );
+    000001E4 60E3                   MOV         R14,R0
+    000001E6 480B                   JSR         @R8
+    000001E8 04AE                   MOV.L       @(R0,R10),R4
+    000001EA 7C01                   ADD         #1,R12
+    000001EC 7E04                   ADD         #4,R14
+    000001EE 3C92                   CMP/HS      R9,R12
+    000001F0 8FF3                   BF/S        L403
+    000001F2 7D01                   ADD         #1,R13
+    000001F4 DD0F                   MOV.L       L410+28,R13; _GetKey
+    000001F6 9E10                   MOV.W       L410+2,R14 ; H'7532
+         spoof.c   145            }
+         spoof.c   146            
+         spoof.c   147            while( 1 ) {
+    000001F8              L405:                             
+         spoof.c   148                    GetKey( &key );
+    000001F8 4D0B                   JSR         @R13
+    000001FA 64F3                   MOV         R15,R4
+         spoof.c   149                    if ( key == KEY_CTRL_EXIT ) {
+    000001FC 62F2                   MOV.L       @R15,R2
+    000001FE 32E0                   CMP/EQ      R14,R2
+    00000200 8BFA                   BF          L405
+         spoof.c   150                            return 1;
+    00000202 E001                   MOV         #1,R0
+         spoof.c   151                    }
+         spoof.c   152            }
+         spoof.c   153    }
+    00000204 7F2C                   ADD         #44,R15
+    00000206 4F26                   LDS.L       @R15+,PR
+    00000208 68F6                   MOV.L       @R15+,R8
+    0000020A 69F6                   MOV.L       @R15+,R9
+    0000020C 6AF6                   MOV.L       @R15+,R10
+    0000020E 6BF6                   MOV.L       @R15+,R11
+    00000210 6CF6                   MOV.L       @R15+,R12
+    00000212 6DF6                   MOV.L       @R15+,R13
+    00000214 000B                   RTS
+    00000216 6EF6                   MOV.L       @R15+,R14
+    00000218              L410:                             
+    00000218 7539                   .DATA.W     H'7539
+    0000021A 7532                   .DATA.W     H'7532
+    0000021C <00000000>             .DATA.L     L333
+    00000220 <00000000>             .DATA.L     __quick_odd_mvn
+    00000224 <00000000>             .DATA.L     L335
+    00000228 <00000000>             .DATA.L     _PopUpWin
+    0000022C <00000000>             .DATA.L     _Print
+    00000230 <00000000>             .DATA.L     _locate
+    00000234 <00000000>             .DATA.L     _GetKey
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    9
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000238 <00000000>             .DATA.L     L348
+    0000023C <00000000>             .DATA.L     L350
+         spoof.c   154    
+         spoof.c   155    #pragma section _BR_Size
+         spoof.c   156    unsigned long BR_Size;
+         spoof.c   157    #pragma section
+         spoof.c   158    
+         spoof.c   159    
+         spoof.c   160    #pragma section _TOP
+         spoof.c   161    
+         spoof.c   162    /**
+         spoof.c   163     * InitializeSystem
+         spoof.c   164     *
+         spoof.c   165     * @param isAppli   : 1 = Application / 0 = eActivity
+         spoof.c   166     * @param OptionNum : Option Number (only eActivity)
+         spoof.c   167     * 
+         spoof.c   168     * @return int: 1 = No error / 0 = Error
+         spoof.c   169     */
+         spoof.c   170    int InitializeSystem(int isAppli, unsigned short OptionNum) {
 P_T 00000000              _InitializeSystem:               ; function: InitializeSystem
                                                            ; frame size=0
-         spoof.c    72    {
-         spoof.c    73        return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+         spoof.c   171        return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+    00000000 D301                   MOV.L       L411+2,R3  ; _INIT_ADDIN_APPLICATION
+    00000002 432B                   JMP         @R3
+    00000004 0009                   NOP
+    00000006              L411:                             
+    00000006 0000                   .DATA.W     0
+    00000008 <00000000>             .DATA.L     _INIT_ADDIN_APPLICATION
+         spoof.c   172    }
+         spoof.c   173    
+         spoof.c   174    #pragma section
+         spoof.c   175    
+C   00000000              L316:
+    00000000 <00000000>             .DATA.L     L317,L318,L319,L320,L321,L322,L323,L317,L324,L325,L326,L326,L326,L323
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+    00000038              L333:
+    00000038 0000000700             .DATA.L     H'00000007,H'00000004,H'00000001,H'00000005,H'00000005
+             0000040000   
+             0001000000   
+             0500000005   
+    0000004C              L335:
+    0000004C <00000000>             .DATA.L     L336,L337,L326,L338,L339
+             <00000000>   
+             <00000000>   
+             <00000000>   
 
 
 
 
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 12-Mar-2021 17:53:10  PAGE    3
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE   10
 
 
 SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
 
-    00000000 D301                   MOV.L       L317+2,R3  ; _INIT_ADDIN_APPLICATION
-    00000002 432B                   JMP         @R3
-    00000004 0009                   NOP
-    00000006              L317:                             
-    00000006 0000                   .DATA.W     0
-    00000008 <00000000>             .DATA.L     _INIT_ADDIN_APPLICATION
-         spoof.c    74    }
-         spoof.c    75    
-         spoof.c    76    #pragma section
-         spoof.c    77    
-C   00000000              L302:
-    00000000 5468697320             .SDATA      "This application is"
-             6170706C69   
-             636174696F   
-             6E206973     
-    00000013 00                     .DATA.B     H'00
-    00000014              L303:
-    00000014 2073616D70             .SDATA      " sample Add-In."
-             6C65204164   
-             642D496E2E   
-    00000023 00                     .DATA.B     H'00
+             <00000000>   
+    00000060              L348:
+    00000060 0000000800             .DATA.L     H'00000008,H'00000004,H'00000001,H'00000001,H'00000006
+             0000040000   
+             0001000000   
+             0100000006   
+    00000074              L350:
+    00000074 <00000000>             .DATA.L     L351,L337,L326,L326,L352
+             <00000000>   
+             <00000000>   
+             <00000000>   
+             <00000000>   
+    00000088              L317:
+    00000088 2A2A2A2A2A             .SDATA      "*****   RESET   *****"
+             2020205245   
+             5345542020   
+             202A2A2A2A   
+             2A           
+    0000009D 00                     .DATA.B     H'00
+    0000009E 00000002               .RES.W      1
+    000000A0              L318:
+    000000A0 46313A5365             .SDATA      "F1:Setup Data"
+             7475702044   
+             617461       
+    000000AD 00                     .DATA.B     H'00
+    000000AE 00000002               .RES.W      1
+    000000B0              L319:
+    000000B0 46323A4D61             .SDATA      "F2:Main Memory"
+             696E204D65   
+             6D6F7279     
+    000000BE 00                     .DATA.B     H'00
+    000000BF 00000001               .RES.B      1
+    000000C0              L320:
+    000000C0 46333A4164             .SDATA      "F3:Add-In"
+             642D496E     
+    000000C9 00                     .DATA.B     H'00
+    000000CA 00000002               .RES.W      1
+    000000CC              L321:
+    000000CC 46343A5374             .SDATA      "F4:Storage Memory"
+             6F72616765   
+             204D656D6F   
+             7279         
+    000000DD 00                     .DATA.B     H'00
+    000000DE 00000002               .RES.W      1
+    000000E0              L322:
+    000000E0 46353A4164             .SDATA      "F5:Add-In&Storage"
+             642D496E26   
+             53746F7261   
+             6765         
+    000000F1 00                     .DATA.B     H'00
+    000000F2 00000002               .RES.W      1
+    000000F4              L323:
+    000000F4 46363A4E65             .SDATA      "F6:Next Page"
+             7874205061   
+             6765         
+    00000100 00                     .DATA.B     H'00
+    00000101 00000001               .RES.B      1
+
+
+
+
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE   11
+
+
+SCT OFFSET   CODE       C LABEL     INSTRUCTION OPERAND    COMMENT
+
+    00000102 00000002               .RES.W      1
+    00000104              L324:
+    00000104 46313A4D61             .SDATA      "F1:Main&Storage"
+             696E265374   
+             6F72616765   
+    00000113 00                     .DATA.B     H'00
+    00000114              L325:
+    00000114 46323A496E             .SDATA      "F2:Initialize All"
+             697469616C   
+             697A652041   
+             6C6C         
+    00000125 00                     .DATA.B     H'00
+    00000126 00000002               .RES.W      1
+    00000128              L326:
+    00000128 00                     .DATA.B     H'00
+    00000129 00000001               .RES.B      1
+    0000012A 00000002               .RES.W      1
+    0000012C              L336:
+    0000012C 5265736574             .SDATA      "Reset OK?"
+             204F4B3F     
+    00000135 00                     .DATA.B     H'00
+    00000136 00000002               .RES.W      1
+    00000138              L337:
+    00000138 496E697469             .SDATA      "Initialize All"
+             616C697A65   
+             20416C6C     
+    00000146 00                     .DATA.B     H'00
+    00000147 00000001               .RES.B      1
+    00000148              L338:
+    00000148 5965733A5B             .SDATA      "Yes:[F1]"
+             46315D       
+    00000150 00                     .DATA.B     H'00
+    00000151 00000001               .RES.B      1
+    00000152 00000002               .RES.W      1
+    00000154              L339:
+    00000154 4E6F203A5B             .SDATA      "No :[F6]"
+             46365D       
+    0000015C 00                     .DATA.B     H'00
+    0000015D 00000001               .RES.B      1
+    0000015E 00000002               .RES.W      1
+    00000160              L351:
+    00000160 5265736574             .SDATA      "Reset!"
+             21           
+    00000166 00                     .DATA.B     H'00
+    00000167 00000001               .RES.B      1
+    00000168              L352:
+    00000168 5072657373             .SDATA      "Press:[EXIT]"
+             3A5B455849   
+             545D         
+    00000174 00                     .DATA.B     H'00
 B_B 00000000              _BR_Size:                        ; static: BR_Size
     00000000 00000004               .RES.L      1
 
@@ -167,36 +724,7 @@ B_B 00000000              _BR_Size:                        ; static: BR_Size
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 12-Mar-2021 17:53:10  PAGE    1
+SH SERIES C/C++ Compiler (Ver. 6.0C)                                                                 13-Mar-2021 00:28:20  PAGE    1
 
 
 ******** STATISTICS INFORMATION ********
@@ -212,16 +740,16 @@ NUMBER OF WARNINGS:         0
 
 ******* SOURCE LINE INFORMATION ********
 
-COMPILED SOURCE LINE:       77
+COMPILED SOURCE LINE:      175
 
 
 
 ******* SECTION SIZE INFORMATION *******
 
-PROGRAM  SECTION (P):                               0000004C Byte(s)
+PROGRAM  SECTION (P):                               00000240 Byte(s)
 PROGRAM  SECTION (P_BR_Size):                       00000000 Byte(s)
 PROGRAM  SECTION (P_TOP):                           0000000C Byte(s)
-CONSTANT SECTION (C):                               00000024 Byte(s)
+CONSTANT SECTION (C):                               00000175 Byte(s)
 CONSTANT SECTION (C_BR_Size):                       00000000 Byte(s)
 CONSTANT SECTION (C_TOP):                           00000000 Byte(s)
 DATA     SECTION (D):                               00000000 Byte(s)
@@ -231,15 +759,15 @@ BSS      SECTION (B):                               00000000 Byte(s)
 BSS      SECTION (B_BR_Size):                       00000004 Byte(s)
 BSS      SECTION (B_TOP):                           00000000 Byte(s)
 
- TOTAL PROGRAM SIZE: 00000080 Byte(s)
+ TOTAL PROGRAM SIZE: 000003C5 Byte(s)
 
 
 
 ********** LABEL INFORMATION ***********
 
-NUMBER OF EXTERNAL REFERENCE SYMBOLS:            5
-NUMBER OF EXTERNAL DEFINITION SYMBOLS:           3
-NUMBER OF INTERNAL/EXTERNAL SYMBOLS:            13
+NUMBER OF EXTERNAL REFERENCE SYMBOLS:            8
+NUMBER OF EXTERNAL DEFINITION SYMBOLS:           7
+NUMBER OF INTERNAL/EXTERNAL SYMBOLS:            51
 
 
 
@@ -265,5 +793,5 @@ NUMBER OF INTERNAL/EXTERNAL SYMBOLS:            13
 *** COMMAND PARAMETER ***
 
 
-  -subcommand=C:\Users\Alec\AppData\Local\Temp\hmkC426.tmp 
+  -subcommand=C:\Users\Alec\AppData\Local\Temp\hmk8392.tmp 
 
