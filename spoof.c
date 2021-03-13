@@ -17,18 +17,20 @@
  */
 int AddIn_main(int isAppli, unsigned short OptionNum) {
 	
-	// clearing the whole vram and display driver
-	Bdisp_AllClr_DDVRAM();
+	while( 1 ) {
+		// clearing the whole vram and display driver
+		Bdisp_AllClr_DDVRAM();
 
-	menu();
+		menu();
 
-	resetWindow();
+		resetWindow();
 
-	Bdisp_AllClr_DDVRAM();
-	Sleep( 3000 );
-	Bdisp_AreaReverseVRAM( 123, 0, 127, 4 );
-	Bdisp_PutDisp_DD();
-	Sleep( 3000 );
+		Bdisp_AllClr_DDVRAM();
+		Sleep( 3000 );
+		Bdisp_AreaReverseVRAM( 123, 0, 127, 4 );
+		Bdisp_PutDisp_DD();
+		Sleep( 3000 );
+	}
 
     return 1;
 }
