@@ -1,22 +1,22 @@
-Hitachi Optimizing Linkage Editor (Ver. 7.1.03.000)13-Mar-2021 00:28:21
+Hitachi Optimizing Linkage Editor (Ver. 7.1.03.000)13-Mar-2021 01:27:59
 
 *** Options ***
 
--subcommand=C:\Users\Alec\AppData\Local\Temp\hmk8614.tmp
+-subcommand=C:\Users\Alec\AppData\Local\Temp\hmk1E07.tmp
 noprelink
 sdebug
 rom D=R
 nomessage
-list "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug\FXADDINror.map"
+list "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug\FXADDINror.map"
 show symbol
 nooptimize
 start P_TOP,P,C,D,C$VTBL,C$INIT/0300200,B_BR_Size,B,R/08100000
 fsymbol P
 nologo
-input "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug\spoof.obj"
+input "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug\spoof.obj"
 input "D:\casio sdk\OS\FX\lib\setup.obj"
 library "D:\casio sdk\OS\FX\lib\fx9860G_library.lib"
-output "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug\FXADDINror.abs"
+output "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug\FXADDINror.abs"
 -nomessage=1100
 end
 
@@ -29,11 +29,11 @@ SECTION                            START      END         SIZE   ALIGN
 P_TOP
                                   00300200  0030020b         c   4
 P
-                                  0030020c  00300917       70c   4
+                                  0030020c  00300ba3       998   4
 C
-                                  00300918  00300aa3       18c   4
+                                  00300ba4  00300d4b       1a8   4
 D
-                                  00300aa4  00300aa7         4   4
+                                  00300d4c  00300d4f         4   4
 B_BR_Size
                                   08100000  08100003         4   4
 B
@@ -48,171 +48,215 @@ FILE=                               START        END    SIZE
   SYMBOL                            ADDR        SIZE    INFO      COUNTS  OPT
 
 SECTION=P_TOP
-FILE=C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug\spoof.obj
+FILE=C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug\spoof.obj
                                   00300200  0030020b         c
   _InitializeSystem
                                   00300200         c   func ,g         * 
 
 SECTION=P
-FILE=C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug\spoof.obj
-                                  0030020c  0030044b       240
+FILE=C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug\spoof.obj
+                                  0030020c  003004bf       2b4
   _AddIn_main
-                                  0030020c        26   func ,g         * 
+                                  0030020c        16   func ,g         * 
   _menu
-                                  00300232        6e   func ,g         * 
+                                  00300222        7a   func ,g         * 
   _plotMenuPage
-                                  003002a0        78   func ,g         * 
+                                  0030029c        80   func ,g         * 
   _confirmWindow
-                                  00300318        90   func ,g         * 
+                                  0030031c        94   func ,g         * 
+  _loadingBar
+                                  003003b0        70   func ,g         * 
   _resetWindow
-                                  003003a8        a4   func ,g         * 
+                                  00300420        a0   func ,g         * 
 FILE=D:\casio sdk\OS\FX\lib\setup.obj
-                                  0030044c  00300567       11c
+                                  003004c0  003005db       11c
   ___LINK_PROTECT
-                                  0030044c         4   func ,g         * 
+                                  003004c0         4   func ,g         * 
   _SetQuitHandler
-                                  00300450         6   func ,g         * 
+                                  003004c4         6   func ,g         * 
   _OnAppCloseDefault
-                                  00300456        54   func ,g         * 
+                                  003004ca        54   func ,g         * 
   __INITSCT_ADDIN
-                                  003004aa        48   func ,g         * 
+                                  0030051e        48   func ,g         * 
   _INIT_ADDIN_APPLICATION
-                                  003004f2        76   func ,g         * 
+                                  00300566        76   func ,g         * 
 FILE=__q_fmvn
-                                  00300568  0030060b        a4
+                                  003005dc  0030067f        a4
   __quick_evn_mvn
-                                  00300568         0   none ,g         * 
+                                  003005dc         0   none ,g         * 
   __quick_odd_mvn
-                                  00300574         0   none ,g         * 
+                                  003005e8         0   none ,g         * 
   A_FMVN_TBL
-                                  00300580         0   none ,l         * 
+                                  003005f4         0   none ,l         * 
   FMVN_64
-                                  00300586         0   none ,l         * 
+                                  003005fa         0   none ,l         * 
   FMVN_60
-                                  0030058a         0   none ,l         * 
+                                  003005fe         0   none ,l         * 
   FMVN_56
-                                  0030058e         0   none ,l         * 
+                                  00300602         0   none ,l         * 
   FMVN_52
-                                  00300592         0   none ,l         * 
+                                  00300606         0   none ,l         * 
   FMVN_48
-                                  00300596         0   none ,l         * 
+                                  0030060a         0   none ,l         * 
   FMVN_44
-                                  0030059a         0   none ,l         * 
+                                  0030060e         0   none ,l         * 
   FMVN_40
-                                  0030059e         0   none ,l         * 
+                                  00300612         0   none ,l         * 
   FMVN_36
-                                  003005a2         0   none ,l         * 
+                                  00300616         0   none ,l         * 
   FMVN_32
-                                  003005a6         0   none ,l         * 
+                                  0030061a         0   none ,l         * 
   FMVN_28
-                                  003005aa         0   none ,l         * 
+                                  0030061e         0   none ,l         * 
   FMVN_24
-                                  003005ae         0   none ,l         * 
+                                  00300622         0   none ,l         * 
   FMVN_20
-                                  003005b2         0   none ,l         * 
+                                  00300626         0   none ,l         * 
   FMVN_16
-                                  003005b6         0   none ,l         * 
+                                  0030062a         0   none ,l         * 
   FMVN_12
-                                  003005ba         0   none ,l         * 
+                                  0030062e         0   none ,l         * 
   FMVN_8
-                                  003005be         0   none ,l         * 
+                                  00300632         0   none ,l         * 
   FMVN_4
-                                  003005c2         0   none ,l         * 
+                                  00300636         0   none ,l         * 
   FMVN_0
-                                  003005c4         0   none ,l         * 
+                                  00300638         0   none ,l         * 
   FMVN_TBL
-                                  003005c8         0   none ,l         * 
+                                  0030063c         0   none ,l         * 
 FILE=_Bdel_cychdr
-                                  0030060c  0030061b        10
+                                  00300680  0030068f        10
   _Bdel_cychdr
-                                  0030060c         0   none ,g         * 
+                                  00300680         0   none ,g         * 
 FILE=_Bdisp_AllClr_DDVRAM
-                                  0030061c  0030062b        10
+                                  00300690  0030069f        10
   _Bdisp_AllClr_DDVRAM
-                                  0030061c         0   none ,g         * 
+                                  00300690         0   none ,g         * 
+FILE=_Bdisp_PutDisp_DD
+                                  003006a0  003006af        10
+  _Bdisp_PutDisp_DD
+                                  003006a0         0   none ,g         * 
 FILE=_BfileFLS_CloseFile
-                                  0030062c  0030063b        10
+                                  003006b0  003006bf        10
   _BfileFLS_CloseFile
-                                  0030062c         0   none ,g         * 
+                                  003006b0         0   none ,g         * 
 FILE=_Bkey_Set_RepeatTime_Default
-                                  0030063c  0030064b        10
+                                  003006c0  003006cf        10
   _Bkey_Set_RepeatTime_Default
-                                  0030063c         0   none ,g         * 
+                                  003006c0         0   none ,g         * 
 FILE=_CallbackAtQuitMainFunction
-                                  0030064c  0030065b        10
+                                  003006d0  003006df        10
   _CallbackAtQuitMainFunction
-                                  0030064c         0   none ,g         * 
+                                  003006d0         0   none ,g         * 
 FILE=_flsFindClose
-                                  0030065c  0030066b        10
+                                  003006e0  003006ef        10
   _flsFindClose
-                                  0030065c         0   none ,g         * 
+                                  003006e0         0   none ,g         * 
 FILE=_getkey
-                                  0030066c  0030067b        10
+                                  003006f0  003006ff        10
   _GetKey
-                                  0030066c         0   none ,g         * 
+                                  003006f0         0   none ,g         * 
 FILE=_GLibAddinAplExecutionCheck
-                                  0030067c  0030068b        10
+                                  00300700  0030070f        10
   _GLibAddinAplExecutionCheck
-                                  0030067c         0   none ,g         * 
+                                  00300700         0   none ,g         * 
 FILE=_Hmem_SetMMU
-                                  0030068c  0030069b        10
+                                  00300710  0030071f        10
   _Hmem_SetMMU
-                                  0030068c         0   none ,g         * 
+                                  00300710         0   none ,g         * 
 FILE=_PopUpWin
-                                  0030069c  003006ab        10
+                                  00300720  0030072f        10
   _PopUpWin
-                                  0030069c         0   none ,g         * 
+                                  00300720         0   none ,g         * 
 FILE=_Print
-                                  003006ac  003006bb        10
+                                  00300730  0030073f        10
   _Print
-                                  003006ac         0   none ,g         * 
+                                  00300730         0   none ,g         * 
 FILE=dispbios
-                                  003006bc  00300831       176
+                                  00300740  003008b5       176
   _PrintMini
-                                  003006bc        1c   func ,g         * 
+                                  00300740        1c   func ,g         * 
   _locate
-                                  003006d8        28   func ,g         * 
+                                  0030075c        28   func ,g         * 
   _Bdisp_ReadArea_DD
-                                  00300700       132   func ,g         * 
+                                  00300784       132   func ,g         * 
+FILE=timer
+                                  003008b8  003009b7       100
+  _GetSDKLibraryVersion
+                                  003008b8         6   func ,g         * 
+  _SetTimer
+                                  003008be        54   func ,g         * 
+  _KillTimer
+                                  00300912        44   func ,g         * 
+  _Sleep
+                                  00300956        62   func ,g         * 
 FILE=__divls
-                                  00300834  003008e7        b4
+                                  003009b8  00300a6b        b4
   __divls
-                                  00300834         0   none ,g         * 
+                                  003009b8         0   none ,g         * 
   divls_zero
-                                  003008d2         0   none ,l         * 
+                                  00300a56         0   none ,l         * 
   A_errno
-                                  003008e0         0   none ,l         * 
+                                  00300a64         0   none ,l         * 
   n_zerono
-                                  003008e4         0   none ,l         * 
+                                  00300a68         0   none ,l         * 
+FILE=__modls
+                                  00300a6c  00300b33        c8
+  __modls
+                                  00300a6c         0   none ,g         * 
+  modls_L
+                                  00300b12         0   none ,l         * 
+  modls_zero
+                                  00300b1e         0   none ,l         * 
+  A_errno
+                                  00300b2c         0   none ,l         * 
+  n_zerono
+                                  00300b30         0   none ,l         * 
+FILE=_Bcre_cychdr
+                                  00300b34  00300b43        10
+  _Bcre_cychdr
+                                  00300b34         0   none ,g         * 
+FILE=_BSrl_DummyWAIT
+                                  00300b44  00300b53        10
+  _BSrl_DummyWAIT
+                                  00300b44         0   none ,g         * 
+FILE=_Bsta_cychdr
+                                  00300b54  00300b63        10
+  _Bsta_cychdr
+                                  00300b54         0   none ,g         * 
+FILE=_Bstp_cychdr
+                                  00300b64  00300b73        10
+  _Bstp_cychdr
+                                  00300b64         0   none ,g         * 
 FILE=_DD_GET
-                                  003008e8  003008f7        10
+                                  00300b74  00300b83        10
   _DD_GET
-                                  003008e8         0   none ,g         * 
+                                  00300b74         0   none ,g         * 
 FILE=_locate
-                                  003008f8  00300907        10
+                                  00300b84  00300b93        10
   _locate_OS
-                                  003008f8         0   none ,g         * 
+                                  00300b84         0   none ,g         * 
 FILE=_PrintMiniSd
-                                  00300908  00300917        10
+                                  00300b94  00300ba3        10
   _PrintMiniSd
-                                  00300908         0   none ,g         * 
+                                  00300b94         0   none ,g         * 
 
 SECTION=C
 FILE=addin_sct
-                                  00300a90  00300aa3        14
+                                  00300d38  00300d4b        14
   _B_BGN
-                                  00300a90         0   none ,g         * 
+                                  00300d38         0   none ,g         * 
   _B_END
-                                  00300a94         0   none ,g         * 
+                                  00300d3c         0   none ,g         * 
   _R_BGN
-                                  00300a98         0   none ,g         * 
+                                  00300d40         0   none ,g         * 
   _R_END
-                                  00300a9c         0   none ,g         * 
+                                  00300d44         0   none ,g         * 
   _D_ROM
-                                  00300aa0         0   none ,g         * 
+                                  00300d48         0   none ,g         * 
 
 SECTION=B_BR_Size
-FILE=C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug\spoof.obj
+FILE=C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug\spoof.obj
                                   08100000  08100003         4
   _BR_Size
                                   08100000         4   data ,g         * 
@@ -234,6 +278,9 @@ FILE=_Bdel_cychdr
   __JumpTableTOP
                                   80010070         0   none ,l         * 
 FILE=_Bdisp_AllClr_DDVRAM
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bdisp_PutDisp_DD
   __JumpTableTOP
                                   80010070         0   none ,l         * 
 FILE=_BfileFLS_CloseFile
@@ -266,6 +313,21 @@ FILE=_Print
 FILE=__divls
   zerodiv
                                   0000044e         0   none ,l         * 
+FILE=__modls
+  zerodiv
+                                  0000044e         0   none ,l         * 
+FILE=_Bcre_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_BSrl_DummyWAIT
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bsta_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
+FILE=_Bstp_cychdr
+  __JumpTableTOP
+                                  80010070         0   none ,l         * 
 FILE=_DD_GET
   __JumpTableTOP
                                   80010070         0   none ,l         * 

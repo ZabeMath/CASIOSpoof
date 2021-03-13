@@ -5,61 +5,83 @@
  .export _AddIn_main
 _AddIn_main: .equ h'0030020c
  .export _menu
-_menu: .equ h'00300232
- .export _plotMenuPage
-_plotMenuPage: .equ h'003002a0
+_menu: .equ h'00300222
  .export _resetWindow
-_resetWindow: .equ h'003003a8
+_resetWindow: .equ h'00300420
+ .export _plotMenuPage
+_plotMenuPage: .equ h'0030029c
  .export _confirmWindow
-_confirmWindow: .equ h'00300318
+_confirmWindow: .equ h'0030031c
+ .export _loadingBar
+_loadingBar: .equ h'003003b0
  .export ___LINK_PROTECT
-___LINK_PROTECT: .equ h'0030044c
+___LINK_PROTECT: .equ h'003004c0
  .export _SetQuitHandler
-_SetQuitHandler: .equ h'00300450
+_SetQuitHandler: .equ h'003004c4
  .export _OnAppCloseDefault
-_OnAppCloseDefault: .equ h'00300456
+_OnAppCloseDefault: .equ h'003004ca
  .export __INITSCT_ADDIN
-__INITSCT_ADDIN: .equ h'003004aa
+__INITSCT_ADDIN: .equ h'0030051e
  .export _INIT_ADDIN_APPLICATION
-_INIT_ADDIN_APPLICATION: .equ h'003004f2
+_INIT_ADDIN_APPLICATION: .equ h'00300566
  .export __quick_odd_mvn
-__quick_odd_mvn: .equ h'00300574
+__quick_odd_mvn: .equ h'003005e8
  .export __quick_evn_mvn
-__quick_evn_mvn: .equ h'00300568
+__quick_evn_mvn: .equ h'003005dc
  .export _Bdel_cychdr
-_Bdel_cychdr: .equ h'0030060c
+_Bdel_cychdr: .equ h'00300680
  .export _Bdisp_AllClr_DDVRAM
-_Bdisp_AllClr_DDVRAM: .equ h'0030061c
+_Bdisp_AllClr_DDVRAM: .equ h'00300690
+ .export _Bdisp_PutDisp_DD
+_Bdisp_PutDisp_DD: .equ h'003006a0
  .export _BfileFLS_CloseFile
-_BfileFLS_CloseFile: .equ h'0030062c
+_BfileFLS_CloseFile: .equ h'003006b0
  .export _Bkey_Set_RepeatTime_Default
-_Bkey_Set_RepeatTime_Default: .equ h'0030063c
+_Bkey_Set_RepeatTime_Default: .equ h'003006c0
  .export _CallbackAtQuitMainFunction
-_CallbackAtQuitMainFunction: .equ h'0030064c
+_CallbackAtQuitMainFunction: .equ h'003006d0
  .export _flsFindClose
-_flsFindClose: .equ h'0030065c
+_flsFindClose: .equ h'003006e0
  .export _GetKey
-_GetKey: .equ h'0030066c
+_GetKey: .equ h'003006f0
  .export _GLibAddinAplExecutionCheck
-_GLibAddinAplExecutionCheck: .equ h'0030067c
+_GLibAddinAplExecutionCheck: .equ h'00300700
  .export _Hmem_SetMMU
-_Hmem_SetMMU: .equ h'0030068c
+_Hmem_SetMMU: .equ h'00300710
  .export _PopUpWin
-_PopUpWin: .equ h'0030069c
+_PopUpWin: .equ h'00300720
  .export _Print
-_Print: .equ h'003006ac
+_Print: .equ h'00300730
  .export _PrintMini
-_PrintMini: .equ h'003006bc
+_PrintMini: .equ h'00300740
  .export _locate
-_locate: .equ h'003006d8
+_locate: .equ h'0030075c
  .export _Bdisp_ReadArea_DD
-_Bdisp_ReadArea_DD: .equ h'00300700
+_Bdisp_ReadArea_DD: .equ h'00300784
+ .export _GetSDKLibraryVersion
+_GetSDKLibraryVersion: .equ h'003008b8
+ .export _SetTimer
+_SetTimer: .equ h'003008be
+ .export _KillTimer
+_KillTimer: .equ h'00300912
+ .export _Sleep
+_Sleep: .equ h'00300956
  .export __divls
-__divls: .equ h'00300834
+__divls: .equ h'003009b8
+ .export __modls
+__modls: .equ h'00300a6c
+ .export _Bcre_cychdr
+_Bcre_cychdr: .equ h'00300b34
+ .export _BSrl_DummyWAIT
+_BSrl_DummyWAIT: .equ h'00300b44
+ .export _Bsta_cychdr
+_Bsta_cychdr: .equ h'00300b54
+ .export _Bstp_cychdr
+_Bstp_cychdr: .equ h'00300b64
  .export _DD_GET
-_DD_GET: .equ h'003008e8
+_DD_GET: .equ h'00300b74
  .export _locate_OS
-_locate_OS: .equ h'003008f8
+_locate_OS: .equ h'00300b84
  .export _PrintMiniSd
-_PrintMiniSd: .equ h'00300908
+_PrintMiniSd: .equ h'00300b94
  .end

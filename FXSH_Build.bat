@@ -10,7 +10,7 @@ if exist FXADDINror.bin  del FXADDINror.bin
 cd ..
 if not exist debug\FXADDINror.bin  goto error
 
-"D:\casio sdk\Tools\MakeAddinHeader363.exe" "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof"
+"D:\casio sdk\Tools\MakeAddinHeader363.exe" "C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof"
 if not exist SPOOF.G1A  goto error
 echo Build has completed.
 goto end

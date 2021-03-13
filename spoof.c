@@ -17,15 +17,10 @@
  */
 int AddIn_main(int isAppli, unsigned short OptionNum) {
 	
-	// clearing the hole vram and display driver
+	// clearing the whole vram and display driver
 	Bdisp_AllClr_DDVRAM();
 
 	menu();
-	
-	// temporary (todo loading bar):
-	Bdisp_AllClr_DDVRAM();
-	plotMenuPage( 1 );
-	PopUpWin( 5 );
 
 	resetWindow();
 	
@@ -38,7 +33,7 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
  * menu() displays the Reset menu.
  */
 int menu() {
-	unsigned int key, page = 0;
+	unsigned int key, page = 0, temp;
 	
 	plotMenuPage( page );
 	
@@ -46,14 +41,12 @@ int menu() {
         GetKey( &key );
 		if ( key == KEY_CTRL_F6 ) {
 			page < 1 ? page++ : page--;
-			Bdisp_AllClr_DDVRAM();
 			plotMenuPage( page );
 		} else if ( key == KEY_CTRL_F2 && page == 1 ) {
-			if ( confirmWindow() == 1 ) {
+			temp = confirmWindow();
+			plotMenuPage( page );
+			if ( temp == 1 ) {
 				return 1;
-			} else {
-				Bdisp_AllClr_DDVRAM();
-				plotMenuPage( page );
 			}
 		}
 	}
@@ -65,6 +58,7 @@ int menu() {
  * @param int page: declares which page will be plotted.
  */
 int plotMenuPage( int page ) {
+	unsigned int i;
 	unsigned char * menuItems[][7] = {
 		{
 			"*****   RESET   *****",
@@ -86,7 +80,8 @@ int plotMenuPage( int page ) {
 		}
 	};
 	
-	unsigned int i;
+	Bdisp_AllClr_DDVRAM();
+
 	for ( i = 0 ; i < 7 ; ++i ) {
 		locate( 1, i + 1 );
 		Print( menuItems[page][i] );
@@ -112,7 +107,7 @@ int confirmWindow() {
 	};
 	
 	PopUpWin( 5 );
-	for ( i = 0 ; i < 5 ; i = i + 1 ) {
+	for ( i = 0 ; i < 5 ; ++i ) {
 		locate( windowY[i], i + 2 );
 		Print( windowItems[i] );
 	}
@@ -120,12 +115,28 @@ int confirmWindow() {
 	while( 1 ) {
         GetKey( &key );
 		if ( key == KEY_CTRL_F1 ) {
-			// @todo loading bar
+			// loadingBar();
 			return 1;
 		} else if ( key == KEY_CTRL_F6 ) {
 			return 6;
 		}
     }
+}
+
+int loadingBar() {
+	// @todo make this work
+	unsigned int key;
+	plotMenuPage( 1 );
+	PopUpWin( 5 );
+	locate( 3, 3 );
+	Print( ( unsigned char* ) "One Moment Please" );
+
+	Bdisp_PutDisp_DD();
+
+	Sleep( 2000 );
+	locate( 1, 1 );
+	Print( ( unsigned char* ) "TEST" );
+	plotMenuPage( 1 );
 }
 
 int resetWindow() {
@@ -139,6 +150,7 @@ int resetWindow() {
 		"Press:[EXIT]"
 	};
 	
+	PopUpWin( 5 );
 	for ( i = 0 ; i < 5 ; ++i ) {
 		locate( windowY[i], i + 2 );
 		Print( windowItems[i] );
@@ -172,4 +184,3 @@ int InitializeSystem(int isAppli, unsigned short OptionNum) {
 }
 
 #pragma section
-

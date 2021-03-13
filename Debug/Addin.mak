@@ -5,8 +5,8 @@
 # Directory defines
 TCDIR = D:\casio sdk\OS\SH
 OSDIR = D:\casio sdk\OS
-APPDIR = C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof
-OUTDIR = C:\Users\Alec\Documents\CASIO\fx-9860G SDK\spoof\Debug
+APPDIR = C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof
+OUTDIR = C:\Users\Alec\Documents\CASIO\fx-9860G SDK\CASIOSpoof\Debug
 
 ################
 # Main Defines
