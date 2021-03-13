@@ -30,7 +30,7 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 }
 
 /**
- * menu() displays the Reset menu.
+ * menu() displays the reset menu.
  */
 int menu() {
 	unsigned int key, page = 0, temp;
@@ -93,7 +93,7 @@ int plotMenuPage( int page ) {
 /**
  * confirmWindow() displays the 'Initialize All' reset confirmation window.
  *
- * @return int: returns which function button got pressed (1 or 6).
+ * @return int: returns which function button got pressed (1 for F1 or 6 for F6).
  */
 int confirmWindow() {
 	unsigned int key, i;
@@ -115,7 +115,7 @@ int confirmWindow() {
 	while( 1 ) {
         GetKey( &key );
 		if ( key == KEY_CTRL_F1 ) {
-			// loadingBar();
+			windowLoadingBar();
 			return 1;
 		} else if ( key == KEY_CTRL_F6 ) {
 			return 6;
@@ -123,20 +123,26 @@ int confirmWindow() {
     }
 }
 
-int loadingBar() {
-	// @todo make this work
-	unsigned int key;
-	plotMenuPage( 1 );
-	PopUpWin( 5 );
-	locate( 3, 3 );
-	Print( ( unsigned char* ) "One Moment Please" );
+int windowLoadingBar() {
+	unsigned int i;
 
-	Bdisp_PutDisp_DD();
+	// Doing 26 steps with 600ms per step
+	for ( i = 0 ; i < 26 ; ++i ) {
+		plotMenuPage( 1 );
+		PopUpWin( 5 );
+		locate( 3, 3 );
+		Print( ( unsigned char* ) "One Moment Please" );
 
-	Sleep( 2000 );
-	locate( 1, 1 );
-	Print( ( unsigned char* ) "TEST" );
-	plotMenuPage( 1 );
+		Bdisp_DrawLineVRAM( 18, 31, 109, 31 );
+		Bdisp_DrawLineVRAM( 18, 41, 109, 41 );
+		Bdisp_DrawLineVRAM( 17, 31, 17, 41 );
+		Bdisp_DrawLineVRAM( 109, 32, 109, 40 );
+		Bdisp_AreaReverseVRAM( 18, 32, 18 + i * 3.63, 40 );
+
+		Bdisp_PutDisp_DD();
+
+		Sleep( 600 );
+	}
 }
 
 int resetWindow() {
@@ -150,6 +156,7 @@ int resetWindow() {
 		"Press:[EXIT]"
 	};
 	
+	plotMenuPage( 1 );
 	PopUpWin( 5 );
 	for ( i = 0 ; i < 5 ; ++i ) {
 		locate( windowY[i], i + 2 );
