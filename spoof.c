@@ -23,8 +23,12 @@ int AddIn_main(int isAppli, unsigned short OptionNum) {
 	menu();
 
 	resetWindow();
-	
-	// @todo support reboot (if possible) or spoof reboot
+
+	Bdisp_AllClr_DDVRAM();
+	Sleep( 3000 );
+	Bdisp_AreaReverseVRAM( 123, 0, 127, 4 );
+	Bdisp_PutDisp_DD();
+	Sleep( 3000 );
 
     return 1;
 }
