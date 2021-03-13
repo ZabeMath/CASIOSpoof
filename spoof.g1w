@@ -1,6 +1,6 @@
 [DLSimProject]
 Name=spoof
-Version=00.04.0000
+Version=1.0
 Model=:fx-9860G.dlm
 SourcePath=SRC
 MemoryPath=INIT
