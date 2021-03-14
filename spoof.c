@@ -15,7 +15,7 @@
  *
  * @return int: 1 = No error / 0 = Error
  */
-int AddIn_main(int isAppli, unsigned short OptionNum) {
+int AddIn_main( int isAppli, unsigned short OptionNum ) {
 	
 	while( 1 ) {
 		// clearing the whole vram and display driver
@@ -163,6 +163,17 @@ int plotMenuPage( int page ) {
 		}
 	};
 
+	unsigned int arrow[][19] = {
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0 },
+		{ 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+	};
+
 	Bdisp_AllClr_DDVRAM();
 
 	for ( i = 0 ; i < 7 ; ++i ) {
@@ -185,6 +196,12 @@ int plotMenuPage( int page ) {
 					Bdisp_SetPoint_VRAM( i * 21 + 1 + k, 56 + j, icons2[i][j][k] );
 				}
 			}
+		}
+	}
+
+	for ( i = 0 ; i < 8 ; ++i ) {
+		for ( j = 0 ; j < 19 ; ++j ) {
+			Bdisp_SetPoint_VRAM( 108 + j, 56 + i, arrow[i][j] );
 		}
 	}
 }
@@ -285,8 +302,8 @@ unsigned long BR_Size;
  * 
  * @return int: 1 = No error / 0 = Error
  */
-int InitializeSystem(int isAppli, unsigned short OptionNum) {
-	return INIT_ADDIN_APPLICATION(isAppli, OptionNum);
+int InitializeSystem( int isAppli, unsigned short OptionNum ) {
+	return INIT_ADDIN_APPLICATION( isAppli, OptionNum );
 }
 
 #pragma section

@@ -5,7 +5,7 @@
 [BINDATA]    : "FXADDINror.bin"
 [DISPNAME]   : "spoof"
 [APPNAME]    : "@SPOOF"
-[VERSION]    : "01.00.0000"
+[VERSION]    : "01.01.0000"
 [APL_ICON]   : "MainIcon.bmp"
 [MODULE_NUM] : 0
 [MOD1_TITLE] : "spoof"
